@@ -2,11 +2,16 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const date = require(__dirname + "/date.js");
+// if console log 'express, bodyParser or date', will get the
+// module exports objects
 
 const app = express();
 
-let items = ["Buy Food", "Cook Food", "Eat Food"];
-let workItems = [];
+const items = ["Buy Food", "Cook Food", "Eat Food"];
+const workItems = [];
+// In JS, declaring const does not protect things inside object or array
+// It prevents you from assigning new array or object to it
 
 app.set('view engine', 'ejs');
 
@@ -15,13 +20,8 @@ app.use(express.static(__dirname + "/public"));
 
 app.get('/', function(req, res) {
 
-	let today = new Date();
-	let options = {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
-  };
-  let day = today.toLocaleDateString("en-US", options);
+  const day = date.getDate();
+  // const day = date.getDay();
 
 	// This assumes there is a folder 'views' containing a file 'list.ejs'
 	// inside 'list.ejs' there is an ejs marker called 'kindOfDay'
@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 // when a post request is triggered
 app.post('/', function(req, res) {
   console.log(req.body);
-  let item = req.body.newItem;
+  const item = req.body.newItem;
 
   if (req.body.list === "Work") {
     workItems.push(item);
@@ -65,9 +65,6 @@ app.get("/about", function(req, res) {
 //   workItems.push(item);
 //   app.redirect("/work");
 // });
-
-
-
 
 app.listen(3000, function() {
 	console.log('Server started on port 3000');
