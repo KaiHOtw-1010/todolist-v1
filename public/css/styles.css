@@ -91,7 +91,7 @@ input[type="text"]:focus {
 }
 
 footer {
-  color: white;
+  /* color: white; */
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
